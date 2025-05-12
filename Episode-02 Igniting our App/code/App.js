@@ -25,6 +25,7 @@ root.appendChild(heading);
 // React.createElement("tagname","attribute","content")
 // Multiple childrens = [child1,child2]
 
+// Solution1:
 const parent = React.createElement("div",{id:"parent"},[
     React.createElement("h1",{id:"child1"},"I am an h1 tag"),
     React.createElement("h2",{id:"child2"},"I am an h2 tag"),
@@ -55,7 +56,7 @@ root.render(parent);
  */
 
 
-// solution:
+// solution2:
 const mainParent = React.createElement("div",{id:"mainParent"},[
     React.createElement("div",{id:"child1"},[
     React.createElement("h1",{},"I am an h1 tag"),
