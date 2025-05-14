@@ -407,10 +407,10 @@ const Header = () => {
         <img className="w-[100px] h-[80px]" src="https://png.pngtree.com/png-vector/20220708/ourmid/pngtree-fast-food-logo-png-image_5763171.png" alt="logo-png" />
       </div>
       <div className="flex justify-between items-center">
-        <li className="list-none m-5 text-lg"><a className="no-underline" href="#home">Home</a></li>
-        <li className="list-none m-5 text-lg"><a className="no-underline" href="#about">About</a></li>
-        <li className="list-none m-5 text-lg"><a className="no-underline" href="#contactus">Contact us</a></li>
-        <li className="list-none m-5 text-lg"><a className="no-underline" href="card">Card (0)</a></li>
+        <li className="list-none m-5 text-[18px]"><a className="no-underline" href="#home">Home</a></li>
+        <li className="list-none m-5 text-[18px]"><a className="no-underline" href="#about">About</a></li>
+        <li className="list-none m-5 text-[18px]"><a className="no-underline" href="#contactus">Contact us</a></li>
+        <li className="list-none m-5 text-[18px]"><a className="no-underline" href="card">Card (0)</a></li>
       </div>
     </div>
   )
@@ -458,26 +458,47 @@ const RestaurantCard = (props) => {
   )
 };
 
+// Don't Repeat yourself (PRINCIPLE)
+// Don't Repeat Yourself" (DRY) is a software development principle that encourages developers to avoid duplicating code in a system.
+// The main idea behind DRY is to reduce redundancy and promote efficiency by ensuring that a particular piece of knowledge or logic exists in only one place within a codebase.
+// When developers adhere to the DRY principle, they aim to create reusable components, functions, or modules that can be utilized in various parts of the codebase.
+
+// const RestaurantList = () => {
+//   return (
+//     <div className="m-10 p-10 flex flex-wrap gap-5">
+//       <RestaurantCard key={0} restaurantData={restaurantList[0]} />
+//       <RestaurantCard key={1} restaurantData={restaurantList[1]} />
+//       <RestaurantCard key={2} restaurantData={restaurantList[2]} />
+//       <RestaurantCard key={3} restaurantData={restaurantList[3]} />
+//       <RestaurantCard key={4} restaurantData={restaurantList[4]} />
+//       <RestaurantCard key={5} restaurantData={restaurantList[5]} />
+//       <RestaurantCard key={6} restaurantData={restaurantList[6]} />
+//       <RestaurantCard key={7} restaurantData={restaurantList[7]} />
+//       <RestaurantCard key={8} restaurantData={restaurantList[8]} />
+//       <RestaurantCard key={9} restaurantData={restaurantList[9]} />
+//       <RestaurantCard key={10} restaurantData={restaurantList[10]} />
+//       <RestaurantCard key={11} restaurantData={restaurantList[11]} />
+//       <RestaurantCard key={12} restaurantData={restaurantList[12]} />
+//       <RestaurantCard key={13} restaurantData={restaurantList[13]} />
+//       <RestaurantCard key={14} restaurantData={restaurantList[14]} />
+//       <RestaurantCard key={15} restaurantData={restaurantList[15]} />
+//       <RestaurantCard key={16} restaurantData={restaurantList[16]} />
+//     </div>
+//   )
+// };
+
+// Please Map method used to render all components(All).
+// Why we have to pass key?
+// answer ::
+// - react optimize the render cycle
+// - effectivly dom manuplation(DOM)
+
 const RestaurantList = () => {
   return (
     <div className="m-10 p-10 flex flex-wrap gap-5">
-      <RestaurantCard key={0} restaurantData={restaurantList[0]} />
-      <RestaurantCard key={1} restaurantData={restaurantList[1]} />
-      <RestaurantCard key={2} restaurantData={restaurantList[2]} />
-      <RestaurantCard key={3} restaurantData={restaurantList[3]} />
-      <RestaurantCard key={4} restaurantData={restaurantList[4]} />
-      <RestaurantCard key={5} restaurantData={restaurantList[5]} />
-      <RestaurantCard key={6} restaurantData={restaurantList[6]} />
-      <RestaurantCard key={7} restaurantData={restaurantList[7]} />
-      <RestaurantCard key={8} restaurantData={restaurantList[8]} />
-      <RestaurantCard key={9} restaurantData={restaurantList[9]} />
-      <RestaurantCard key={10} restaurantData={restaurantList[10]} />
-      <RestaurantCard key={11} restaurantData={restaurantList[11]} />
-      <RestaurantCard key={12} restaurantData={restaurantList[12]} />
-      <RestaurantCard key={13} restaurantData={restaurantList[13]} />
-      <RestaurantCard key={14} restaurantData={restaurantList[14]} />
-      <RestaurantCard key={15} restaurantData={restaurantList[15]} />
-      <RestaurantCard key={16} restaurantData={restaurantList[16]} />
+       {restaurantList.map((restaurant) => (
+        <RestaurantCard key={restaurant.info.id} restaurantData={restaurant} />
+      ))}
     </div>
   )
 };
