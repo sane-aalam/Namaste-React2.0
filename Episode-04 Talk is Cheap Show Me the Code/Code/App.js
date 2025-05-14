@@ -1,7 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// include Header.css file
-import "./main.css";
 
 /* Components of Our Food-Order App -
  * Low level planning our App -
@@ -35,7 +33,7 @@ import "./main.css";
 //       - `Render` your cards with dynamic data of restaurants
 //       - Use `Array.map` to render all the restaurants
 
-// mockData
+
 const restaurantList = [
   {
     info: {
@@ -45,7 +43,7 @@ const restaurantList = [
       locality: "2nd Stage",
       areaName: "BTM Layout",
       costForTwo: "₹350 for two",
-      cuisines: ["Pizzas"],
+      cuisines: ["Pizzas","Pastas", "Italian", "Desserts", "Beverages"],
       avgRating: 4.1,
       parentId: "721",
       avgRatingString: "4.1",
@@ -396,123 +394,94 @@ const restaurantList = [
   },
 ];
 
-const Header = () => {
-  return (
-    <div className="wrapperHeader">
-      <div className="Header">
-        <div className="res-logo">
-          <img
-            src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/swiggy-logo.webp"
-            alt=""
-          />
-        </div>
-        <div className="navItems">
-          <p className="nav-item">Home</p>
-          <p className="nav-item">About Swiggy</p>
-          <p className="nav-item">Delivering For Everyone</p>
-          <p className="nav-item">Newsroom</p>
-          <p className="nav-item">Contact Us</p>
-          <p className="nav-item">Card</p>
-          <p className="nav-item">Sustainability</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // To maintain the swiggy limit chars only limit 22)
 // let name = "Leon's - Burgers & Wings (Leon Grill)"
 // console.log(name.slice(0, 22))
 // console.log(name.length > 22?"---":"-")
 
-const RestaurantCard = (props) => {
-  // object Destructuring (props manage!)
-  const { restaurantData } = props;
-  const {
-    cloudinaryImageId,
-    name,
-    areaName,
-    avgRating,
-    cuisines,
-    costForTwo,
-    deliveryTime,
-  } = restaurantData?.info;
+const Header = () => {
+  return (
+    <div className="flex justify-around items-center shadow-md w-full h-[90px]">
+      <div>
+        <img className="w-[100px] h-[80px]" src="https://png.pngtree.com/png-vector/20220708/ourmid/pngtree-fast-food-logo-png-image_5763171.png" alt="logo-png" />
+      </div>
+      <div className="flex justify-between items-center">
+        <li className="list-none m-5 text-lg"><a className="no-underline" href="#home">Home</a></li>
+        <li className="list-none m-5 text-lg"><a className="no-underline" href="#about">About</a></li>
+        <li className="list-none m-5 text-lg"><a className="no-underline" href="#contactus">Contact us</a></li>
+        <li className="list-none m-5 text-lg"><a className="no-underline" href="card">Card (0)</a></li>
+      </div>
+    </div>
+  )
+};
 
-  // console.log(deliveryTime);
+// Mock data > transfer data (12 restuarants) > passing data one components to other componets (props)
+// Props > object Destructuring(props)
+//  
+
+const RestaurantCard = (props) => {
+  // console.log(props.restaurantData.info.name);
+
+  const { restaurantData } = props;
+  const { id, name, cloudinaryImageId, locality, areaName,
+     costForTwo, cuisines, avgRating, deliveryTime } 
+  = restaurantData?.info;
 
   return (
-    <div className="restaurant_card">
-      <div className="section-1">
-        <img
-          className="res-img"
-          src={
+    <div className="w-[320px] h-[350px] shadow-2xl text-[17px]">
+      <div className="flex justify-center items-center">
+        <img src={
             "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
             cloudinaryImageId
           }
           alt=""
-          width="250px"
-          height="160px"
-        />
+        className="w-[280px] h-[180px]" />
       </div>
-      <div className="section-2">
-        <h3 className="title-card">
+      <div className="m-4">
+        <div className="text-1xl font-bold">
           {name.slice(0, 22)}
           {name.length > 22 ? "..." : ""}
-        </h3>
-        <div className="delivery-section">
-          <span className="star-rating-color" class="material-icons">
-            star
-          </span>
-          <p>{avgRating}</p>
-          <p>{costForTwo}</p>
-          <p>{deliveryTime} mins</p>
         </div>
-        <div className="location-section">
-          <p>
+        <div className="flex justify-start gap-1">
+           <p>⭐{avgRating}</p>
+           <p className="text-1xl">• {deliveryTime} mins</p>
+        </div>
+        <p>
             {cuisines.join(", ").slice(0, 30)}
             {cuisines.join(", ").length > 30 ? "..." : ""}
-          </p>
-          <p>{areaName}</p>
-        </div>
+        </p>
+        <p>{areaName}</p>
+        <p>{costForTwo}</p>
       </div>
     </div>
-  );
+  )
 };
-
-// Don't Repeat yourself (PRINCIPLE)
-// Don't Repeat Yourself" (DRY) is a software development principle that encourages developers to avoid duplicating code in a system.
-// The main idea behind DRY is to reduce redundancy and promote efficiency by ensuring that a particular piece of knowledge or logic exists in only one place within a codebase.
-// When developers adhere to the DRY principle, they aim to create reusable components, functions, or modules that can be utilized in various parts of the codebase.
-
-// const RestaurantList = () => {
-//   return (
-//     <div className="res-list">
-//       <RestaurantCard key={0} restaurantData={restaurantList[0]} />
-//       <RestaurantCard key={1} restaurantData={restaurantList[1]} />
-//       <RestaurantCard key={2} restaurantData={restaurantList[2]} />
-//       <RestaurantCard key={3} restaurantData={restaurantList[3]} />
-//       <RestaurantCard key={4} restaurantData={restaurantList[4]} />
-//       <RestaurantCard key={5} restaurantData={restaurantList[5]} />
-//       <RestaurantCard key={6} restaurantData={restaurantList[6]} />
-//       <RestaurantCard key={7} restaurantData={restaurantList[7]} />
-//     </div>
-//   );
-// };
-
-// Please Map method used to render all components(All).
-// Why we have to pass key?
-// - react optimize the render cycle
-// - effectivly dom manuplation(DOM)
 
 const RestaurantList = () => {
   return (
-    <div className="res-list">
-      {restaurantList.map((restaurant) => (
-        <RestaurantCard key={restaurant.info.id} restaurantData={restaurant} />
-      ))}
+    <div className="m-10 p-10 flex flex-wrap gap-5">
+      <RestaurantCard key={0} restaurantData={restaurantList[0]} />
+      <RestaurantCard key={1} restaurantData={restaurantList[1]} />
+      <RestaurantCard key={2} restaurantData={restaurantList[2]} />
+      <RestaurantCard key={3} restaurantData={restaurantList[3]} />
+      <RestaurantCard key={4} restaurantData={restaurantList[4]} />
+      <RestaurantCard key={5} restaurantData={restaurantList[5]} />
+      <RestaurantCard key={6} restaurantData={restaurantList[6]} />
+      <RestaurantCard key={7} restaurantData={restaurantList[7]} />
+      <RestaurantCard key={8} restaurantData={restaurantList[8]} />
+      <RestaurantCard key={9} restaurantData={restaurantList[9]} />
+      <RestaurantCard key={10} restaurantData={restaurantList[10]} />
+      <RestaurantCard key={11} restaurantData={restaurantList[11]} />
+      <RestaurantCard key={12} restaurantData={restaurantList[12]} />
+      <RestaurantCard key={13} restaurantData={restaurantList[13]} />
+      <RestaurantCard key={14} restaurantData={restaurantList[14]} />
+      <RestaurantCard key={15} restaurantData={restaurantList[15]} />
+      <RestaurantCard key={16} restaurantData={restaurantList[16]} />
     </div>
-  );
+  )
 };
+
 
 const AppLayout = () => {
   return (
