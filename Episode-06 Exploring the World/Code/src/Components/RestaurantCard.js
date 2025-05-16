@@ -4,9 +4,11 @@ const RestaurantCard = (props) => {
   // console.log(props.restaurantData.info.name);
 
   const { restaurantData } = props;
-  const { id, name, cloudinaryImageId, locality, areaName,
-     costForTwo, cuisines, avgRating, deliveryTime } 
+  const {name, cloudinaryImageId, locality, areaName,
+     costForTwo, cuisines, avgRating} 
   = restaurantData?.info;
+
+  const deliveryTime = restaurantData?.info?.sla?.deliveryTime;
 
   return (
     <div className="w-[320px] h-[350px] shadow-2xl text-[17px] relative max-w-xs overflow-hidden bg-cover bg-no-repeat bg-gray-100 font-Arvo">
@@ -31,7 +33,7 @@ const RestaurantCard = (props) => {
             {cuisines.join(", ").slice(0, 30)}
             {cuisines.join(", ").length > 30 ? "..." : ""}
         </p>
-        <p>{areaName}</p>
+        <p>{areaName}, {locality}</p>
         <p>{costForTwo}</p>
       </div>
     </div>

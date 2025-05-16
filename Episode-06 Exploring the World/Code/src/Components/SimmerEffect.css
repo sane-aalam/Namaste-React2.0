@@ -1,0 +1,8 @@
+
+.simmer-card{
+    margin: 0px 180px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 7rem;
+}

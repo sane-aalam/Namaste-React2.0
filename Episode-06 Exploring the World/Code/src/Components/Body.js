@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { restaurantList } from "../Utils/MockData.js"
 import RestaurantCard from "./RestaurantCard.js";
-
-
-// In React.js UI Creation
-// We will always follow second approach
-// App Loads > Render (HTML) > Call API > re-render DATA
-// useEffect() is a hook that takes a function and an array of dependencies as arguments.
-// It calls the function whenever one of the dependencies changes.
-// useEffect() is always call after body render 
+import SimmerEffect from "./SimmerEffect.js";
 
 const Body = () => {
-  const [restaurant,setRestaurant] = useState(restaurantList);
+  const [restaurant,setRestaurant] = useState([]);
 
   // useEffect() is a hook that takes a function and an array of dependencies as arguments.
   // It calls the function whenever one of the dependencies changes.
@@ -27,29 +19,33 @@ const Body = () => {
 
   const fetechSwiggyReatTimeData = async () =>{
       const url =
-       "https://foodfire.onrender.com/api/restaurants?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING";
+       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.960059122809971&lng=77.57337538383284&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
     const response = await fetch(url);
     const jsonData = await response.json();
 
     console.log(jsonData)
 
-    // console.log(jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle ?.restaurants)
+    console.log(jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle ?.restaurants)
+    setRestaurant(jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle ?.restaurants);
   }
 
-  // write feature to filter the restaurant which have top ratings
-  const filterTopRatingRestaurants = () =>{
-     const filterRestaurantData = restaurant.filter((res) =>{
-        return res.info.avgRating > 4.5;
-     })
-     console.log(filterRestaurantData);
-     setRestaurant(filterRestaurantData);
-  }
-  return (
+  return (restaurant.length == 0)?<SimmerEffect/>: (
     <div className="ml-15 mr-15 pl-5 pr-5">
+          <div className="mt-5 mb-5 ml-2 text-2xl font-bold text-black">
+            Restaurants with online food delivery in Bangalore
+          </div>
           <div className="mt-5 mb-5 ml-2">
-              <button onClick={()=> filterTopRatingRestaurants()} data-ripple-light="true" className="inline-block rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2 cursor-pointer" type="button">
+        {/* write feature to filter the restaurant which have top ratings */}
+              <button onClick={()=> {
+                const filterRestaurantData = restaurant.filter((res) =>{
+                      return res.info.avgRating > 4.5;
+                  })
+                  console.log(filterRestaurantData);
+                  setRestaurant(filterRestaurantData);
+              }} data-ripple-light="true" className="inline-block rounded-md bg-white py-2 px-4 border border-transparent text-center text-1xl font-bold text-black shadow-md" type="button">
           Top Ratings Restaurants
           </button>
+
           </div>
         <div className="flex flex-wrap gap-5">
         {restaurant.map((restaurant) => (
