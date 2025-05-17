@@ -5,17 +5,11 @@ import SimmerEffect from "./SimmerEffect.js";
 const Body = () => {
   const [restaurant,setRestaurant] = useState([]);
 
-  // useEffect() is a hook that takes a function and an array of dependencies as arguments.
-  // It calls the function whenever one of the dependencies changes.
-
-  console.log("body called 1")
-
   useEffect(() =>{
     console.log("useEffect is called!")
+    // call Fetech Swiggy API Method
     fetechSwiggyReatTimeData();
   },[])
-
-  console.log("body called 2")
 
   const fetechSwiggyReatTimeData = async () =>{
       const url =
@@ -31,10 +25,10 @@ const Body = () => {
 
   return (restaurant.length == 0)?<SimmerEffect/>: (
     <div className="ml-15 mr-15 pl-5 pr-5">
-          <div className="mt-5 mb-5 ml-2 text-2xl font-bold text-black">
+          <div className="mt-5 mb-5 ml-5 text-2xl font-bold text-gray-700">
             Restaurants with online food delivery in Bangalore
           </div>
-          <div className="mt-5 mb-5 ml-2">
+          <div className="mt-5 mb-5 ml-4">
         {/* write feature to filter the restaurant which have top ratings */}
               <button onClick={()=> {
                 const filterRestaurantData = restaurant.filter((res) =>{
@@ -42,7 +36,7 @@ const Body = () => {
                   })
                   console.log(filterRestaurantData);
                   setRestaurant(filterRestaurantData);
-              }} data-ripple-light="true" className="inline-block rounded-md bg-white py-2 px-4 border border-transparent text-center text-1xl font-bold text-black shadow-md" type="button">
+              }} data-ripple-light="true" className="inline-block rounded-md bg-white py-2 px-4 border border-transparent text-center text-1xl font-bold text-gray-700 shadow-md" type="button">
           Top Ratings Restaurants
           </button>
 
